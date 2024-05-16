@@ -4,18 +4,17 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-// Tugas Pertemuan 5
-class ModelUser extends Model
+class ModelMenu extends Model
 {
-    protected $table            = 'user';
-    protected $primaryKey       = 'id_user';
+    protected $table            = 'menu';
+    protected $primaryKey       = 'kdmenu';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = false;
     protected $allowedFields    = [];
 
-    protected bool $allowEmptyInserts = false;
+    protected bool $allowEmptyInserts = true;
 
     // Dates
     protected $useTimestamps = false;
@@ -41,29 +40,23 @@ class ModelUser extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function simpanData($data = null)
+    public function simpan($data)
     {
         $this->insert($data);
     }
 
-    public function cekData($where = null)
+    public function getMenu()
     {
-        return $this->where($where)->first();
-        // return $this->where('email', 'asd.asd@asd.asd')->first();
-    }
-    
-    public function getUserWhere($getWhere = null)
-    {
-        return $this->where($getWhere)->first();
+        return $this->findAll();
     }
 
-    public function cekUserAccess($userAcc = null)
+    public function updateMenu($id, $data)
     {
-        return $this->db->table('access_menu')->where($userAcc);
+        $this->update($id, $data);
     }
 
-    public function getUserLimit()
+    public function deleteMenu($id)
     {
-        return $this->findAll(10, 0);
+        $this->delete($id);
     }
 }
